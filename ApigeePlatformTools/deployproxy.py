@@ -108,8 +108,10 @@ def run():
     tzf.write(tf.getvalue())
     tzf.close()
     
-  revision = deploytools.importBundle(Organization, Name, tf.getvalue())
-  if (revision < 0):
+  try:
+    revision = deploytools.importBundle(Organization, Name, tf.getvalue())
+  except Exception, e:
+    print e
     sys.exit(2)
   
   print 'Imported new proxy revision %i' % revision

@@ -57,10 +57,16 @@ def run():
       
       
   if ((Environment == None) and (Name != None)):
-    deploytools.getAndPrintDeployments(Organization, Name)
+    try:
+      deploytools.getAndPrintDeployments(Organization, Name)
+    except Exception, e:
+      print e
       
   elif ((Environment != None) and (Name == None)):
-    deploytools.getAndPrintEnvDeployments(Organization, Environment)
+    try:
+      deploytools.getAndPrintEnvDeployments(Organization, Environment)
+    except Exception, e:
+      print e
     
   else:
     printUsage()
