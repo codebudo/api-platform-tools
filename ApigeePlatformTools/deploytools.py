@@ -112,7 +112,16 @@ def importBundle(org, name, data):
   uri =  '/v1/organizations/%s/apis?action=import&name=%s' \
              % (org, name)
   print 'Importing new application %s' % name
-  resp = httptools.httpCall('POST', uri, hdrs, data)
+  
+  resp = None
+  try:
+    resp = httptools.httpCall('POST', uri, hdrs, data)
+  except Exception, e:
+    print e
+
+  if resp == None:
+    print 'Import failed.'
+    return -1
 
   if resp.status != 200 and resp.status != 201:
     print 'Import failed to %s with status %i:\n%s' % (uri, resp.status, resp.read())

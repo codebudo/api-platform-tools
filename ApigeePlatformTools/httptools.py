@@ -21,6 +21,10 @@ def httpCall(verb, uri, headers = None, body = None):
     hdrs = headers
   hdrs['Authorization'] = 'Basic %s' % opts['userPW']
   hdrs['Accept'] = 'application/json'
-  conn.request(verb, uri, body, hdrs)
+  try:
+    conn.request(verb, uri, body, hdrs)
+  except Exception, e:
+    print e
+
   return conn.getresponse()
   
